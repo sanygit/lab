@@ -1,0 +1,326 @@
+import java.util.Random;
+
+public class MatrixOperations {
+    public static void main(String[] args) {
+        int[][] matrix = new int[3][3];
+
+        // Fill the matrix with random integers between 1 and 50 (inclusive)
+        Random random = new Random();
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                matrix[i][j] = random.nextInt(50) + 1;
+            }
+        }
+
+        // Display the matrix
+        System.out.println("Matrix:");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[i].length; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        // Calculate and display the sum of the main diagonal elements
+        int mainDiagonalSum = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            mainDiagonalSum += matrix[i][i];
+        }
+        System.out.println("Sum of the main diagonal elements: " + mainDiagonalSum);
+
+        // Determine and display the product of the secondary diagonal elements
+        int secondaryDiagonalProduct = 1;
+        for (int i = 0; i < matrix.length; i++) {
+            secondaryDiagonalProduct *= matrix[i][matrix.length - 1 - i];
+        }
+        System.out.println("Product of the secondary diagonal elements: " + secondaryDiagonalProduct);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+public class BubbleSort {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the size of the array: ");
+        int size = scanner.nextInt();
+        int[] array = new int[size];
+
+        System.out.println("Enter " + size + " elements:");
+        for (int i = 0; i < size; i++) {
+            array[i] = scanner.nextInt();
+        }
+
+        System.out.println("Original Array:");
+        displayArray(array);
+
+        // Bubble Sort
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = 0; j < size - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    // Swap the elements
+                    int temp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = temp;
+
+                    System.out.println("Intermediate Step " + (i + 1) + ":");
+                    displayArray(array);
+                }
+            }
+        }
+
+        System.out.println("Sorted Array:");
+        displayArray(array);
+
+        scanner.close();
+    }
+
+    // Helper function to display the array
+    public static void displayArray(int[] arr) {
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println();
+    }
+}
+
+
+
+
+
+
+
+import java.util.Arrays;
+
+public class Student {
+    private String name;
+    private double[] testScores;
+
+    public Student(String name, double[] testScores) {
+        this.name = name;
+        this.testScores = testScores;
+    }
+
+    public double calculateAverageScore() {
+        double sum = 0;
+        for (double score : testScores) {
+            sum += score;
+        }
+        return sum / testScores.length;
+    }
+
+    public double findHighestScore() {
+        double highest = testScores[0];
+        for (double score : testScores) {
+            if (score > highest) {
+                highest = score;
+            }
+        }
+        return highest;
+    }
+
+    public double findLowestScore() {
+        double lowest = testScores[0];
+        for (double score : testScores) {
+            if (score < lowest) {
+                lowest = score;
+            }
+        }
+        return lowest;
+    }
+
+    public void displayStudentInfo() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Test Scores: " + Arrays.toString(testScores));
+        System.out.println("Average Score: " + calculateAverageScore());
+        System.out.println("Highest Score: " + findHighestScore());
+        System.out.println("Lowest Score: " + findLowestScore());
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        String studentName = "John Doe";
+        double[] scores = {85, 90, 78, 92, 88};
+        Student student = new Student(studentName, scores);
+        student.displayStudentInfo();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class StudentGradingSystem {
+    private Student[] students;
+
+    public StudentGradingSystem(Student[] students) {
+        this.students = students;
+    }
+
+    public void displayAllStudentInfo() {
+        for (Student student : students) {
+            student.displayStudentInfo();
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create an array of Student objects
+        Student[] students = new Student[3];
+        
+        students[0] = new Student("John Doe", new double[] { 85, 90, 78, 92, 88 });
+        students[1] = new Student("Jane Smith", new double[] { 92, 88, 76, 94, 89 });
+        students[2] = new Student("Alice Johnson", new double[] { 78, 83, 79, 91, 87 });
+
+        // Create the StudentGradingSystem
+        StudentGradingSystem gradingSystem = new StudentGradingSystem(students);
+
+        // Display information for all students
+        gradingSystem.displayAllStudentInfo();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class StudentGradingSystem {
+    private ArrayList<Student> studentsList;
+
+    public StudentGradingSystem() {
+        studentsList = new ArrayList<>();
+    }
+
+    public void addStudent(Student student) {
+        studentsList.add(student);
+    }
+
+    public void displayStudentWithHighestAverage() {
+        if (studentsList.isEmpty()) {
+            System.out.println("No students in the system.");
+            return;
+        }
+
+        Student highestAvgStudent = studentsList.get(0);
+        for (Student student : studentsList) {
+            if (student.calculateAverageScore() > highestAvgStudent.calculateAverageScore()) {
+                highestAvgStudent = student;
+            }
+        }
+
+        System.out.println("Student with the highest average score:");
+        highestAvgStudent.displayStudentInfo();
+    }
+
+    public void displayStudentWithLowestAverage() {
+        if (studentsList.isEmpty()) {
+            System.out.println("No students in the system.");
+            return;
+        }
+
+        Student lowestAvgStudent = studentsList.get(0);
+        for (Student student : studentsList) {
+            if (student.calculateAverageScore() < lowestAvgStudent.calculateAverageScore()) {
+                lowestAvgStudent = student;
+            }
+        }
+
+        System.out.println("Student with the lowest average score:");
+        lowestAvgStudent.displayStudentInfo();
+    }
+
+    public void displayStudentWithHighestTestScore() {
+        if (studentsList.isEmpty()) {
+            System.out.println("No students in the system.");
+            return;
+        }
+
+        Student studentWithHighestScore = studentsList.get(0);
+
+        for (Student student : studentsList) {
+            if (student.findHighestScore() > studentWithHighestScore.findHighestScore()) {
+                studentWithHighestScore = student;
+            }
+        }
+
+        System.out.println("Student with the highest test score:");
+        studentWithHighestScore.displayStudentInfo();
+    }
+
+    public void displayStudentWithLowestTestScore() {
+        if (studentsList.isEmpty()) {
+            System.out.println("No students in the system.");
+            return;
+        }
+
+        Student studentWithLowestScore = studentsList.get(0);
+
+        for (Student student : studentsList) {
+            if (student.findLowestScore() < studentWithLowestScore.findLowestScore()) {
+                studentWithLowestScore = student;
+            }
+        }
+
+        System.out.println("Student with the lowest test score:");
+        studentWithLowestScore.displayStudentInfo();
+    }
+
+    public static void main(String[] args) {
+        StudentGradingSystem gradingSystem = new StudentGradingSystem();
+
+        // Create and add students
+        Student student1 = new Student("John Doe", new double[] { 85, 90, 78, 92, 88 });
+        Student student2 = new Student("Jane Smith", new double[] { 92, 88, 76, 94, 89 });
+        Student student3 = new Student("Alice Johnson", new double[] { 78, 83, 79, 91, 87 });
+
+        gradingSystem.addStudent(student1);
+        gradingSystem.addStudent(student2);
+        gradingSystem.addStudent(student3);
+
+        // Display students with highest and lowest average scores
+        gradingSystem.displayStudentWithHighestAverage();
+        gradingSystem.displayStudentWithLowestAverage();
+
+        // Display students with highest and lowest test scores
+        gradingSystem.displayStudentWithHighestTestScore();
+        gradingSystem.displayStudentWithLowestTestScore();
+    }
+}

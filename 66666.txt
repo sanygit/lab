@@ -1,0 +1,286 @@
+public class BankAccount {
+    private int accountNumber;
+    private String accountHolderName;
+    private double balance;
+
+    public BankAccount(int accountNumber, String accountHolderName) {
+        this.accountNumber = accountNumber;
+        this.accountHolderName = accountHolderName;
+        this.balance = 0.0;
+    }
+
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited $" + amount);
+        } else {
+            System.out.println("Invalid deposit amount. Please deposit a positive amount.");
+        }
+    }
+
+    public void withdraw(double amount) {
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+            System.out.println("Withdrawn $" + amount);
+        } else if (amount <= 0) {
+            System.out.println("Invalid withdrawal amount. Please withdraw a positive amount.");
+        } else {
+            System.out.println("Insufficient balance for withdrawal.");
+        }
+    }
+
+    public void displayAccountInfo() {
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Account Holder's Name: " + accountHolderName);
+        System.out.println("Balance: $" + balance);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        BankAccount account = new BankAccount(12345, "John Doe");
+        account.displayAccountInfo();
+
+        account.deposit(1000.0);
+        account.displayAccountInfo();
+
+        account.withdraw(500.0);
+        account.displayAccountInfo();
+
+        account.withdraw(600.0); // Insufficient balance
+        account.displayAccountInfo();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+public class LibraryBook {
+    private int employeeId;
+    private String firstName;
+    private String lastName;
+    private double salary;
+
+    public LibraryBook(int employeeId, String firstName, String lastName) {
+        this.employeeId = employeeId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.salary = 0.0;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void increaseSalaryByPercentage(double percentage) {
+        if (percentage > 0) {
+            double increaseAmount = (percentage / 100) * salary;
+            salary += increaseAmount;
+        }
+    }
+
+    public void displayEmployeeInfo() {
+        System.out.println("Employee ID: " + employeeId);
+        System.out.println("Full Name: " + firstName + " " + lastName);
+        System.out.println("Salary: $" + salary);
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        LibraryBook book = new LibraryBook(12345, "John", "Doe");
+        book.displayEmployeeInfo();
+
+        book.setSalary(30000.0);
+        book.displayEmployeeInfo();
+
+        book.increaseSalaryByPercentage(10.0);
+        book.displayEmployeeInfo();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Stack;
+
+public class Parentheses {
+    public static boolean areParenthesesBalanced(String input) {
+        Stack<Character> stack = new Stack<>();
+
+        for (char c : input.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else if (c == ')' || c == ']' || c == '}') {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                char openParen = stack.pop();
+                if ((c == ')' && openParen != '(') || (c == ']' && openParen != '[') || (c == '}' && openParen != '{')) {
+                    return false;
+                }
+            }
+        }
+
+        return stack.isEmpty();
+    }
+
+    public static void main(String[] args) {
+        String input1 = "[()]{}{[()()]()}";
+        String input2 = "[(])";
+
+        boolean result1 = areParenthesesBalanced(input1);
+        boolean result2 = areParenthesesBalanced(input2);
+
+        System.out.println("Are parentheses balanced in '" + input1 + "': " + result1);
+        System.out.println("Are parentheses balanced in '" + input2 + "': " + result2);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Random;
+
+public class QuoteGenerator {
+    private String[] quotes;
+
+    public QuoteGenerator() {
+        quotes = new String[] {
+            "Life is what happens when you're busy making other plans. - John Lennon",
+            "The only way to do great work is to love what you do. - Steve Jobs",
+            "In three words I can sum up everything I've learned about life: it goes on. - Robert Frost",
+            "The only thing we have to fear is fear itself. - Franklin D. Roosevelt",
+            "To be yourself in a world that is constantly trying to make you something else is the greatest accomplishment. - Ralph Waldo Emerson"
+        };
+    }
+
+    public String getQuote() {
+        Random random = new Random();
+        int index = random.nextInt(quotes.length);
+        return quotes[index];
+    }
+
+    public void addQuote(String quote) {
+        // Code to add a new quote to the list of quotes, for future extensions.
+    }
+
+    public static void main(String[] args) {
+        QuoteGenerator quoteGenerator = new QuoteGenerator();
+        String randomQuote = quoteGenerator.getQuote();
+        System.out.println("Quote of the day: " + randomQuote);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.HashMap;
+
+public class TollTax {
+    private int totalCarsCrossed;
+    private double totalAmountCollected;
+    private HashMap<String, Double> tollRates;
+
+    public TollTax() {
+        totalCarsCrossed = 0;
+        totalAmountCollected = 0.0;
+        tollRates = new HashMap<>();
+    }
+
+    // Add toll rates for different car types (e.g., 2-wheeler, 3-wheeler, 4-wheeler)
+    public void setTollRate(String carType, double rate) {
+        tollRates.put(carType, rate);
+    }
+
+    // Receive toll based on car type and mode (prepaid or instant)
+    public void receiveToll(String carType, String mode) {
+        if (tollRates.containsKey(carType)) {
+            double rate = tollRates.get(carType);
+            double tollAmount = 0.0;
+
+            if (mode.equals("prepaid")) {
+                // Apply a discount for prepaid toll collection
+                tollAmount = rate * 0.9;
+            } else if (mode.equals("instant")) {
+                tollAmount = rate;
+            } else {
+                System.out.println("Invalid toll mode. Use 'prepaid' or 'instant'.");
+                return;
+            }
+
+            totalAmountCollected += tollAmount;
+            totalCarsCrossed++;
+            System.out.println("Toll collected for a " + carType + " (" + mode + "): $" + tollAmount);
+        } else {
+            System.out.println("Toll rate not set for " + carType);
+        }
+    }
+
+    public int getNumberOfCarsCrossed() {
+        return totalCarsCrossed;
+    }
+
+    public double getTotalAmountCollected() {
+        return totalAmountCollected;
+    }
+
+    public static void main(String[] args) {
+        TollTax tollSystem = new TollTax();
+
+        tollSystem.setTollRate("2-wheeler", 2.5);
+        tollSystem.setTollRate("3-wheeler", 5.0);
+        tollSystem.setTollRate("4-wheeler", 10.0);
+
+        tollSystem.receiveToll("2-wheeler", "prepaid");
+        tollSystem.receiveToll("4-wheeler", "instant");
+        tollSystem.receiveToll("3-wheeler", "invalid_mode");
+        tollSystem.receiveToll("4-wheeler", "instant");
+
+        System.out.println("Total number of cars crossed: " + tollSystem.getNumberOfCarsCrossed());
+        System.out.println("Total amount collected: $" + tollSystem.getTotalAmountCollected());
+    }
+}
